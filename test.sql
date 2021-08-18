@@ -5,7 +5,7 @@ DROP TABLE questions;
 CREATE DATABASE test;
 
 CREATE TABLE questions(
-   questions_id SERIAL NOT NULL,
+  questions_id SERIAL NOT NULL,
   product_id INTEGER NOT NULL,
   body VARCHAR(300),
   unixtimestamp BIGINT,
@@ -72,99 +72,3 @@ INSERT INTO photos (fkanswers_id, url) values (1, 'https://images.unsplash.com/p
 INSERT INTO photos (fkanswers_id, url) values (1, 'https://images.unsplash.com/photo-1511127088257-53ccfcc769fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=30');
 INSERT INTO photos (fkanswers_id, url) values (1, 'https://images.unsplash.com/photo-1500603720222-eb7a1f997356?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1653&q=20');
 INSERT INTO photos (fkanswers_id, url) values (2, 'https://images.unsplash.com/photo-1500603720222-eb7a1f997356?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1653&q=20');
-
--- select array(
---     select
---       json_build_object(
---       'question_id', questions.questions_id,
---       'question_body', questions.body,
---       'question_date', questions.date_written,
---       'asker_name', questions.asker_name,
---       'question_helpfulness', questions.helpful,
---       'reported', questions.reported,
---       'answers', json_object_agg(
---         answers.answers_id, json_build_object(
---           'id', answers.answers_id,
---           'body', answers.answer_body,
---           'date', answers.date_written,
---           'answerer_name', answers.answerer_name,
---           'helpfulness', answers.answer_helpful,
-
---           'photos', array(
---             select url from photos where photos.fkanswers_id = answers.answers_id
---           )
-
-
---           )
---         )
---       )
---     FROM questions
---     INNER JOIN answers
---     ON answers.fkquestions_id = questions.questions_id
---     INNER JOIN photos
---     ON photos.fkanswers_id = answers.answers_id
---     WHERE questions.product_id = $1
---     GROUP BY questions.questions_id, photos.url
---       )
---     AS results;
-
--- select array(
---       select
---         json_build_object(
---         'question_id', questions.questions_id,
---         'question_body', questions.body,
---         'question_date', questions.date_written,
---         'asker_name', questions.asker_name,
---         'question_helpfulness', questions.helpful,
---         'reported', questions.reported,
---         'answers', json_object_agg(
---           answers.answers_id, json_build_object(
---             'id', answers.answers_id,
---             'body', answers.answer_body,
---             'date', answers.date_written,
---             'answerer_name', answers.answerer_name,
---             'helpfulness', answers.answer_helpful,
---             'photos', array(
---               select url from photos where photos.fkanswers_id = answers.answers_id
---             )
---             )
---           )
---         )
---       FROM questions
---       INNER JOIN answers
---       ON answers.fkquestions_id = questions.questions_id
---       WHERE questions.product_id = 1000
---       GROUP BY questions.questions_id
---         )
---       AS results
-
-
--- select array(
---       select
---         json_build_object(
---         'question_id', questions.questions_id,
---         'question_body', questions.body,
---         'question_date', questions.date_written,
---         'asker_name', questions.asker_name,
---         'question_helpfulness', questions.helpful,
---         'reported', questions.reported,
---         'answers', json_object_agg(
---           answers.answers_id, json_build_object(
---             'id', answers.answers_id,
---             'body', answers.answer_body,
---             'date', answers.date_written,
---             'answerer_name', answers.answerer_name,
---             'helpfulness', answers.answer_helpful,
---             'photos', array(
---               select url from photos where photos.fkanswers_id = answers.answers_id
---             )
---             )
---           )
---         )
---       FROM questions
---       INNER JOIN answers
---       ON answers.fkquestions_id = questions.questions_id
---       WHERE questions.product_id = 1000
---       GROUP BY questions.questions_id
---         )
---       AS results

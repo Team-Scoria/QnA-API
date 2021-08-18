@@ -1,13 +1,10 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   host: 'localhost',
-  // database: 'qna',
   database: 'qna',
-  // password: 'goal',
   port: 5432,
 })
 
-//   refactor so that the column names match the api
 
 const getQuestions = (request, response) => {
 
@@ -53,12 +50,9 @@ const getQuestions = (request, response) => {
   })
 };
 
-//handle reported items
 const getAnswers = (request, response) => {
 
-  //grab params questions id
   var id = request.params.question_id;
-  //grab query params page default 1
   const page = request.query.page || 1;
   const count = request.query.count || 5;
   var startingPoint = (page - 1) * count;
@@ -116,11 +110,9 @@ const addAnswer = (request, response) => {
   const id = request.params.question_id;
   const { body, name, email, photos } = request.body;
 
-  //insert answer
   var insertAnswerQuery = `INSERT INTO answers (fkquestion_id, body, answerer_name, answerer_email, answer_reported, helpfulness, date) VALUES ($1, $2, $3, $4, $5, $6, current_timestamp) RETURNING answer_id
   `;
 
-  //insert photos
   var insertPhotosQuery = `INSERT INTO photos (fkanswer_id, url) VALUES ($1, $2)`;
 
   pool.query(insertAnswerQuery, [id, body, name, email, 0, 0], async (error, results) => {

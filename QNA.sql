@@ -1,7 +1,7 @@
 DROP DATABASE qna;
-DROP TABLE photos;
-DROP TABLE answers;
-DROP TABLE questions;
+-- DROP TABLE photos;
+-- DROP TABLE answers;
+-- DROP TABLE questions;
 CREATE DATABASE qna;
 
 CREATE TABLE questions(
