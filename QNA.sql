@@ -1,7 +1,7 @@
 DROP DATABASE qna;
--- DROP TABLE photos;
--- DROP TABLE answers;
--- DROP TABLE questions;
+DROP TABLE photos;
+DROP TABLE answers;
+DROP TABLE questions;
 CREATE DATABASE qna;
 
 CREATE TABLE questions(
@@ -14,7 +14,7 @@ CREATE TABLE questions(
   reportedNum INTEGER,
   question_helpfulness INTEGER,
   PRIMARY KEY(question_id),
-  question_date timestamp,
+  question_date timestamp ,
   reported BOOLEAN
 );
 COPY questions (question_id, product_id,question_body,unixtimestamp,asker_name,asker_email,reportedNum,question_helpfulness)FROM '/Users/mikeko/Downloads/questions.csv' CSV HEADER;
@@ -34,13 +34,13 @@ CREATE TABLE answers(
   answer_id SERIAL,
   fkquestion_id INTEGER,
   body VARCHAR(300),
-  date timestamp,
+  unixtimestamp BIGINT,
   answerer_name VARCHAR(30),
   answerer_email VARCHAR(50),
-  answer_reported BOOLEAN,
   answer_reportedNum INTEGER,
-  unixtimestamp BIGINT,
   helpfulness INTEGER,
+  answer_reported BOOLEAN,
+  date timestamp,
   PRIMARY KEY(answer_id),
   FOREIGN KEY (fkquestion_id) REFERENCES questions (question_id)
 );
